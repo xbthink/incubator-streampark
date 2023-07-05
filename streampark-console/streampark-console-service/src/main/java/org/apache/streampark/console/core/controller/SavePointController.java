@@ -100,7 +100,8 @@ public class SavePointController {
   @ApiAccess
   @PostMapping("trigger")
   @RequiresPermissions("savepoint:trigger")
-  public RestResponse trigger(Long appId, @Nullable String savepointPath, @Nullable Boolean nativeFormat) {
+  public RestResponse trigger(
+      Long appId, @Nullable String savepointPath, @Nullable Boolean nativeFormat) {
     savePointService.trigger(appId, savepointPath, nativeFormat);
     return RestResponse.success(true);
   }

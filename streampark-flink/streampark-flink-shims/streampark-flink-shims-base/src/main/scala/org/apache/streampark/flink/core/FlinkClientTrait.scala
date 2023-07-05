@@ -24,15 +24,25 @@ import java.util.concurrent.CompletableFuture
 
 abstract class FlinkClientTrait[T](clusterClient: ClusterClient[T]) {
 
-  def triggerSavepoint(jobID: JobID, savepointDir: String, nativeFormat: Boolean): CompletableFuture[String] = {
+  def triggerSavepoint(
+      jobID: JobID,
+      savepointDir: String,
+      nativeFormat: Boolean): CompletableFuture[String] = {
     clusterClient.triggerSavepoint(jobID, savepointDir)
   }
 
-  def cancelWithSavepoint(jobID: JobID, s: String, nativeFormat: Boolean): CompletableFuture[String] = {
+  def cancelWithSavepoint(
+      jobID: JobID,
+      s: String,
+      nativeFormat: Boolean): CompletableFuture[String] = {
     clusterClient.cancelWithSavepoint(jobID, s)
   }
 
-  def stopWithSavepoint(jobID: JobID, b: Boolean, s: String, nativeFormat: Boolean): CompletableFuture[String] =
+  def stopWithSavepoint(
+      jobID: JobID,
+      b: Boolean,
+      s: String,
+      nativeFormat: Boolean): CompletableFuture[String] =
     clusterClient.stopWithSavepoint(jobID, b, s)
 
 }
