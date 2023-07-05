@@ -278,7 +278,7 @@ public class SavePointServiceImpl extends ServiceImpl<SavePointMapper, SavePoint
   }
 
   @Override
-  public void trigger(Long appId, @Nullable String savepointPath) {
+  public void trigger(Long appId, @Nullable String savepointPath, @Nullable Boolean nativeFormat) {
     log.info("Start to trigger savepoint for app {}", appId);
     Application application = applicationService.getById(appId);
 
@@ -314,6 +314,7 @@ public class SavePointServiceImpl extends ServiceImpl<SavePointMapper, SavePoint
             clusterId,
             application.getJobId(),
             customSavepoint,
+            nativeFormat,
             application.getK8sNamespace());
 
     CompletableFuture<SavepointResponse> savepointFuture =

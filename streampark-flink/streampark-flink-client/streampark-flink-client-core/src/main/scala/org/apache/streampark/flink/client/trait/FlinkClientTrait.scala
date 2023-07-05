@@ -180,6 +180,7 @@ trait FlinkClientTrait extends Logger {
          |     withSavePoint     : ${cancelRequest.withSavepoint}
          |     savePointPath     : ${cancelRequest.savepointPath}
          |     withDrain         : ${cancelRequest.withDrain}
+         |     nativeFormat      : ${cancelRequest.nativeFormat}
          |     k8sNamespace      : ${cancelRequest.kubernetesNamespace}
          |     appId             : ${cancelRequest.clusterId}
          |     jobId             : ${cancelRequest.jobId}
@@ -524,11 +525,11 @@ trait FlinkClientTrait extends Logger {
         null
       case (true, false) =>
         clientWrapper
-          .cancelWithSavepoint(jobID, savePointDir)
+          .cancelWithSavepoint(jobID, savePointDir, cancelRequest.nativeFormat)
           .get()
       case (_, _) =>
         clientWrapper
-          .stopWithSavepoint(jobID, cancelRequest.withDrain, savePointDir)
+          .stopWithSavepoint(jobID, cancelRequest.withDrain, savePointDir, cancelRequest)
           .get()
     }
   }
@@ -566,7 +567,7 @@ trait FlinkClientTrait extends Logger {
       client: ClusterClient[_]): String = {
     val savepointPath = tryGetSavepointPathIfNeed(savepointRequest)
     val clientWrapper = new FlinkClusterClient(client)
-    clientWrapper.triggerSavepoint(jobID, savepointPath).get()
+    clientWrapper.triggerSavepoint(jobID, savepointPath, savepointRequest.nativeFormat).get()
   }
 
 }
