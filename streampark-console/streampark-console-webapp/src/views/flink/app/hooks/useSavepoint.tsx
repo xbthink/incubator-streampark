@@ -17,7 +17,7 @@
 import Icon from '/@/components/Icon';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { useI18n } from '/@/hooks/web/useI18n';
-import { Form, Input } from 'ant-design-vue';
+import { Form, Input, Switch} from 'ant-design-vue';
 import { fetchCheckSavepointPath } from '/@/api/flink/app/app';
 import { trigger } from '/@/api/flink/app/savepoint';
 import { ref, unref } from 'vue';
@@ -82,11 +82,11 @@ export const useSavepoint = (updateOption: Fn) => {
               label-col={{ lg: { span: 7, offset: 0 }, sm: { span: 7, offset: 0 } }}
               wrapper-col={{ lg: { span: 16, offset: 0 }, sm: { span: 4, offset: 0 } }}
             >
-              <Input
-                placeholder="Optional: Use native format"
-                allowClear={true}
-                value={nativeFormat.value}
-                onInput={(e) => (nativeFormat.value = e.target.value || false)}
+              <Switch
+                checkedValue={true}
+                unCheckedValue={false}
+                checked={nativeFormat.value}
+                onClick={(checked, e) => (nativeFormat.value = checked || false)}
               />
             </Form.Item>
           </Form>
