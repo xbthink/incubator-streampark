@@ -25,25 +25,36 @@ import java.util.concurrent.CompletableFuture
 class FlinkClusterClient[T](clusterClient: ClusterClient[T])
   extends FlinkClientTrait[T](clusterClient) {
 
-  override def triggerSavepoint(jobID: JobID, savepointDir: String, nativeFormat: Boolean): CompletableFuture[String] = {
-    clusterClient.triggerSavepoint(jobID, savepointDir, if(nativeFormat) SavepointFormatType.NATIVE else SavepointFormatType.CANONICAL)
+  override def triggerSavepoint(
+      jobID: JobID,
+      savepointDir: String,
+      nativeFormat: Boolean): CompletableFuture[String] = {
+    clusterClient.triggerSavepoint(
+      jobID,
+      savepointDir,
+      if (nativeFormat) SavepointFormatType.NATIVE else SavepointFormatType.CANONICAL)
   }
 
   override def cancelWithSavepoint(
       jobID: JobID,
-      savepointDirectory: String, nativeFormat: Boolean): CompletableFuture[String] = {
-    clusterClient.cancelWithSavepoint(jobID, savepointDirectory, if(nativeFormat) SavepointFormatType.NATIVE else SavepointFormatType.CANONICAL)
+      savepointDirectory: String,
+      nativeFormat: Boolean): CompletableFuture[String] = {
+    clusterClient.cancelWithSavepoint(
+      jobID,
+      savepointDirectory,
+      if (nativeFormat) SavepointFormatType.NATIVE else SavepointFormatType.CANONICAL)
   }
 
   override def stopWithSavepoint(
       jobID: JobID,
       advanceToEndOfEventTime: Boolean,
-      savepointDirectory: String, nativeFormat: Boolean): CompletableFuture[String] = {
+      savepointDirectory: String,
+      nativeFormat: Boolean): CompletableFuture[String] = {
     clusterClient.stopWithSavepoint(
       jobID,
       advanceToEndOfEventTime,
       savepointDirectory,
-      if(nativeFormat) SavepointFormatType.NATIVE else SavepointFormatType.CANONICAL)
+      if (nativeFormat) SavepointFormatType.NATIVE else SavepointFormatType.CANONICAL)
   }
 
 }
