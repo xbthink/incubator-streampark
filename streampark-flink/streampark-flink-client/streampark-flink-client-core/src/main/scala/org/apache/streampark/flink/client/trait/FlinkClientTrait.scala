@@ -529,7 +529,11 @@ trait FlinkClientTrait extends Logger {
           .get()
       case (_, _) =>
         clientWrapper
-          .stopWithSavepoint(jobID, cancelRequest.withDrain, savePointDir, cancelRequest.nativeFormat)
+          .stopWithSavepoint(
+            jobID,
+            cancelRequest.withDrain,
+            savePointDir,
+            cancelRequest.nativeFormat)
           .get()
     }
   }
