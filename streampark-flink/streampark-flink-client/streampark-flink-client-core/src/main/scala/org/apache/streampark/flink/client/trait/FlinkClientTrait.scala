@@ -160,6 +160,7 @@ trait FlinkClientTrait extends Logger {
          |     flinkVersion   : ${savepointRequest.flinkVersion.version}
          |     clusterId      : ${savepointRequest.clusterId}
          |     savePointPath  : ${savepointRequest.savepointPath}
+         |     nativeFormat   : ${savepointRequest.nativeFormat}
          |     k8sNamespace   : ${savepointRequest.kubernetesNamespace}
          |     appId          : ${savepointRequest.clusterId}
          |     jobId          : ${savepointRequest.jobId}
