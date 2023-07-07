@@ -1298,18 +1298,19 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
                 savePoint.setCreateTime(new Date());
                 savePoint.setTriggerTime(triggerTime);
                 savePointService.save(savePoint);
-                log.debug("savePoint path: {} is saved", savePointDir);
+                log.info("savePoint path: {} is saved", savePointDir);
               }
               if (isKubernetesApp(application)) {
                 k8SFlinkTrackMonitor.unWatching(toTrackId(application));
+                  log.info("k8SFlinkTrackMonitor.unWatching");
               }
             },
             e -> {
               if (e.getCause() instanceof CancellationException) {
                 updateToStopped(application);
-                log.debug("updateToStopped");
+                log.info("updateToStopped");
               } else {
-                log.error("stop flink job fail.", e);
+                log.info("stop flink job fail.", e);
                 application.setOptionState(OptionState.NONE.getValue());
                 application.setState(FlinkAppState.FAILED.getValue());
                 updateById(application);

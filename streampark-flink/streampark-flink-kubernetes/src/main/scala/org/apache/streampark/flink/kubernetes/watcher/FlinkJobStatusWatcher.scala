@@ -102,6 +102,7 @@ class FlinkJobStatusWatcher(conf: JobStatusWatcherConfig = JobStatusWatcherConfi
           .filter(_.nonEmpty)
           .getOrElse(return
           )
+        logDebug("[FlinkJobStatusWatcher]: trackIds.size " + trackIds.size)
 
         // retrieve flink job status in thread pool
         val tracksFuture: Set[Future[Option[JobStatusCV]]] = trackIds.map {
