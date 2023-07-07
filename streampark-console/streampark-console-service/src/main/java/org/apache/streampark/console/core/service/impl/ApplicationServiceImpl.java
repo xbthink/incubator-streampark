@@ -1302,7 +1302,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
               }
               if (isKubernetesApp(application)) {
                 k8SFlinkTrackMonitor.unWatching(toTrackId(application));
-                  log.info("k8SFlinkTrackMonitor.unWatching");
+                log.info("k8SFlinkTrackMonitor.unWatching");
               }
             },
             e -> {
