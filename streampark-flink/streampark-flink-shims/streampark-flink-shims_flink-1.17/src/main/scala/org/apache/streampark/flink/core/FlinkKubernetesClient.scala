@@ -18,13 +18,15 @@ package org.apache.streampark.flink.core
 
 import org.apache.flink.kubernetes.kubeclient.FlinkKubeClient
 import org.apache.flink.kubernetes.kubeclient.resources.KubernetesService
+import org.apache.streampark.common.util.Logger
 
 import java.util.Optional
 
 class FlinkKubernetesClient(kubeClient: FlinkKubeClient)
-  extends FlinkKubernetesClientTrait(kubeClient) {
+  extends FlinkKubernetesClientTrait(kubeClient) with Logger {
 
   override def getService(serviceName: String): Optional[KubernetesService] = {
+    logInfo(s"getService ${serviceName}")
     kubeClient.getService(serviceName)
   }
 
