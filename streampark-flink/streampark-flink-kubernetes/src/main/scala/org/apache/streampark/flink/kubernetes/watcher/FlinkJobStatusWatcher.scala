@@ -295,8 +295,9 @@ class FlinkJobStatusWatcher(conf: JobStatusWatcherConfig = JobStatusWatcherConfi
     logger.info(
       s"Query the local cache result:${watchController.canceling.has(trackId).toString},trackId ${trackId.toString}.")
     val jobState = {
-      if (watchController.canceling.has(trackId)) FlinkJobState.CANCELED
-      else {
+      if (watchController.canceling.has(trackId)) {
+        FlinkJobState.of(FlinkHistoryArchives.getJobStateFromArchiveFile(trackId.jobId))
+      } else {
         // whether deployment exists on kubernetes cluster
         val isDeployExists =
           KubernetesRetriever.isDeploymentExists(trackId.clusterId, trackId.namespace)
